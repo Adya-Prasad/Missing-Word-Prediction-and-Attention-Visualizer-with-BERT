@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 import os
 from masking_model import run_mask_prediction
 
@@ -17,8 +17,8 @@ def index():
     return render_template('index.html', predictions=predictions, images=images)
 
 if __name__ == '__main__':
-    # Ensure the static/generated-images folder exists
-    images_path = os.path.join('static', 'generated-images')
+    # Ensure the static/attention-images folder exists
+    images_path = os.path.join('static', 'attention-images')
     if not os.path.exists(images_path):
         os.makedirs(images_path)
     app.run(debug=True)

@@ -19,7 +19,7 @@ GRID_SIZE = 40
 PIXELS_PER_WORD = 200
 
 # Set the folder to save generated images
-IMAGE_FOLDER = os.path.join("static", "generated-images")
+IMAGE_FOLDER = os.path.join("static", "attention-images")
 
 def get_mask_token_index(mask_token_id, inputs):
     """

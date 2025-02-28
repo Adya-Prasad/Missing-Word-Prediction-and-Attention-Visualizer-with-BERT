@@ -10,18 +10,27 @@
 <body>
     <h1>Missing Word Prediction and (MLM) Model Attention Visualizer with BERT</h1>
 
-    <!-- 1. Form to collect user input -->
+    <div class="input-area">
     <form method="POST">
-        <textarea name="input_text" rows="4" cols="50" placeholder="Enter text with [MASK] token"></textarea>
+        <textarea name="input_text" rows="4" class="input" placeholder="Enter your word missing text with. Use [MASK] in place of _____ missing word." autofocus></textarea>
         <br>
-        <p>Prediction can take time (seconds). Please wait!</p>
-        <input type="submit" value="Predict">
+        <p class="notice">Prediction can take time (seconds). Please wait☺</p>
+        <input type="submit" value="PREDICT">
     </form>
+    <h2>Some Rule (Constraints):</h2>
+      <ul>
+        <li>Input example: I saw a [MASK] in space with my telescope.</li>
+        <li>Please try to avoid using for last missing word</li>
+      </ul>
+  </div>
+  <div class="info">
+    after missing word generation model will generate attention diagram images which show you how model predict with what attention. You can see images just by clicking 'view attention images' button after text generation. <a href="#">Learn more about BERT Masking Text Generation Here</a>
+  </div>
 
     <!-- 2. Display predictions if any exist -->
     {% if predictions %}
       <h2>Predicted Texts:</h2>
-      <ul>
+      <ul class="generated-list">
         {% for pred in predictions %}
           <li>{{ pred }}</li>
         {% endfor %}
@@ -29,22 +38,31 @@
       
       <!-- Button to reveal attention images section -->
       <button onclick="document.getElementById('attention-section').style.display='block'; this.style.display='none';">
-        View Attention Images
+        VIEW ATTENTION IMAGES
       </button>
+      <p>Attention Diagrams are visual representation of the attention weights calculated between different words in a sentence, essentially showing which words "pay attention" to each other the most, highlighting the relationships and importance of each word within the context of the sentence; it is essentially a heatmap where the intensity of the color indicates the strength of the attention between word pairs <a href="#">read more about attention diagram</a></p>
     {% endif %}
 
     <!-- 3. Hidden section for attention images -->
-    <div id="attention-section">
-      <h2>Attention Diagrams</h2>
+    <div id="attention-section" style="display: none;">
+      <h2>Attention Diagrams [left to right serial wise]</h2>
+      
       {% if images %}
-        {% for image in images %}
-          <img src="{{ url_for('static', filename='attention-images/' ~ image) }}" 
-               class="attention-image" 
-               alt="Attention Diagram">
-        {% endfor %}
+        <div class="image-grid">
+          {% for image in images %}
+            <div class="image-item">
+              <img src="{{ url_for('static', filename='attention-images/' ~ image) }}" 
+                   class="attention-image" 
+                   alt="Attention Diagram">
+            </div>
+          {% endfor %}
+        </div>
       {% else %}
         <p>No attention images generated.</p>
       {% endif %}
     </div>
+    <footer>
+      Develop by Adya Prasad, &copy; all right reserved 2025🖤
+    </footer>
 </body>
 </html>
