@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Missing Word Prediction and Attention Visualizer with BERT</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <style>
+      
+    </style>
+</head>
+<body>
+    <h1>Missing Word Prediction and (MLM) Model Attention Visualizer with BERT</h1>
+
+    <!-- 1. Form to collect user input -->
+    <form method="POST">
+        <textarea name="input_text" rows="4" cols="50" placeholder="Enter text with [MASK] token"></textarea>
+        <br>
+        <p>Prediction can take time (seconds). Please wait!</p>
+        <input type="submit" value="Predict">
+    </form>
+
+    <!-- 2. Display predictions if any exist -->
+    {% if predictions %}
+      <h2>Predicted Texts:</h2>
+      <ul>
+        {% for pred in predictions %}
+          <li>{{ pred }}</li>
+        {% endfor %}
+      </ul>
+      
+      <!-- Button to reveal attention images section -->
+      <button onclick="document.getElementById('attention-section').style.display='block'; this.style.display='none';">
+        View Attention Images
+      </button>
+    {% endif %}
+
+    <!-- 3. Hidden section for attention images -->
+    <div id="attention-section">
+      <h2>Attention Diagrams</h2>
+      {% if images %}
+        {% for image in images %}
+          <img src="{{ url_for('static', filename='attention-images/' ~ image) }}" 
+               class="attention-image" 
+               alt="Attention Diagram">
+        {% endfor %}
+      {% else %}
+        <p>No attention images generated.</p>
+      {% endif %}
+    </div>
+</body>
+</html>

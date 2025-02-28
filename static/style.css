@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html, body{
+    box-sizing: border-box;
+    background-color: rgb(255, 253, 249);
+    font-family: open-sans, sans-serif;
+}
+
+h1{
+    text-align: center;
+}
+
+.attention-image {
+    width: 200px; 
+    margin: 10px;
+  }
+/* #attention-section {
+    display: none; 
+  } */
